@@ -16,3 +16,5 @@ type HyperParameters struct {
 }
 
 var Parameters = HyperParameters{2, 4, 500}
+
+var SlowFactor = 0.3

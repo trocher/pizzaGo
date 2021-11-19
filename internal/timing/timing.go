@@ -1,7 +1,10 @@
 package timing
 
-import "time"
+import (
+	"pizzago/internal/configs"
+	"time"
+)
 
 func WaitFor(t uint) {
-	time.Sleep(time.Duration(t) * time.Millisecond)
+	time.Sleep(time.Duration(t) * time.Duration(configs.SlowFactor) * time.Millisecond)
 }
