@@ -27,7 +27,7 @@ type PizzaWorker struct {
 }
 
 func (w *PizzaWorker) ProcessOrder() Order {
-	orderId := atomic.AddUint64(&orderTaken, 1)
+	orderId := atomic.AddUint64(&OrderTaken, 1)
 	timing.WaitFor(configs.Timings.Process)
 	return Order{orderId}
 }
@@ -75,7 +75,7 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 		w.HasAssignedOven = true
 		ovenList[w.Name-1].isUsed = w.Name
 	}
-	for atomic.LoadUint64(&orderTaken) < configs.Parameters.NumberOfOrder {
+	for atomic.LoadUint64(&OrderTaken) < configs.Parameters.NumberOfOrder {
 		start := time.Now()
 
 		order := w.ProcessOrder()
@@ -89,7 +89,7 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 			log.Fatal(error)
 		}
 
-		atomic.AddUint64(&orderDelivered, 1)
+		atomic.AddUint64(&OrderDelivered, 1)
 
 		elapsed := time.Since(start)
 		log.Printf("Order %d took %s", order.id, elapsed)
