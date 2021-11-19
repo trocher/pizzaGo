@@ -1,4 +1,4 @@
-// The package configs is used to configure the pizzeria parameters
+// The package config is used to configure the pizzeria parameters
 package config
 
 import (
@@ -11,10 +11,10 @@ import (
 // Config type used to store all the parameters that can be modified into the yaml
 type Config struct {
 	Times struct {
-		Process      uint64 `yaml:"process"`
-		Prepare      uint64 `yaml:"prepare"`
-		Bake         uint64 `yaml:"bake"`
-		QualityCheck uint64 `yaml:"qualityCheck"`
+		Process      uint8 `yaml:"process"`
+		Prepare      uint8 `yaml:"prepare"`
+		Bake         uint8 `yaml:"bake"`
+		QualityCheck uint8 `yaml:"qualityCheck"`
 	} `yaml:"times"`
 	Parameters struct {
 		NumberOfWorkers uint64 `yaml:"NumberOfWorkers"`
@@ -23,11 +23,14 @@ type Config struct {
 	} `yaml:"parameters"`
 }
 
+// Read the yaml specified as an argument to initialize the values of the given config
 func ReadConfig(config *Config) {
+	// If no path to yaml is specified, exit
 	if len(os.Args) == 1 {
 		log.Fatal("Please specify a config file")
 	}
 	f, error := os.Open(os.Args[1])
+	// If there was an error while opening the file, exit
 	if error != nil {
 		log.Fatal(error)
 	}
@@ -38,11 +41,14 @@ func ReadConfig(config *Config) {
 	if error != nil {
 		log.Fatal(error)
 	}
+	// Verify that the values of the configurations are correct
 	if !verifyConfig(config) {
 		log.Fatal("The config file is not valid")
 	}
 
 }
+
+// Verify that the yaml does not contain null values
 func verifyConfig(config *Config) bool {
 	if config.Times.Process == 0 ||
 		config.Times.Prepare == 0 ||

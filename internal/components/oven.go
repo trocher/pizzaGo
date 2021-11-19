@@ -1,11 +1,7 @@
 // This package provide the definition and implementation of an oven
 package components
 
-import (
-	"log"
-)
-
-// Iterface of an oven
+// Interface of an oven
 type Oven interface {
 	Bake(unbakedPizza Pizza) Pizza
 }
@@ -19,10 +15,6 @@ type PizzaOven struct {
 
 // The method bake
 func (o *PizzaOven) Bake(unbakedPizza Pizza) Pizza {
-	// Check wether the pizza is already backed, which should not happen
-	if unbakedPizza.isBaked {
-		log.Fatal("That is weird this pizza is already baked")
-	}
 	// Wait for the time needed to bake a pizza
 	WaitFor(Config.Times.Bake)
 	// Set the isBaked flag to true

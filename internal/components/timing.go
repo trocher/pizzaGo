@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-func WaitFor(t uint64) {
+func WaitFor(t uint8) {
 	time.Sleep(time.Duration(t) * time.Millisecond)
 }
 
@@ -13,6 +13,9 @@ func ExpectedTime() time.Duration {
 	if bottleneck > Config.Parameters.NumberOfOvens {
 		bottleneck = Config.Parameters.NumberOfOvens
 	}
-	expected := (Config.Times.Bake + Config.Times.Prepare + Config.Times.Process + Config.Times.QualityCheck) * Config.Parameters.NumberOfOrders / bottleneck
+	if bottleneck > Config.Parameters.NumberOfOrders {
+		bottleneck = Config.Parameters.NumberOfOrders
+	}
+	expected := uint64(Config.Times.Bake+Config.Times.Prepare+Config.Times.Process+Config.Times.QualityCheck) * Config.Parameters.NumberOfOrders / bottleneck
 	return time.Duration(expected) * time.Duration(time.Millisecond)
 }

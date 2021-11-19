@@ -7,6 +7,6 @@ times: # Times to perform each step in miliseconds
   bake: 5
   qualityCheck: 1
 parameters: 
-  NumberOfWorkers: 2   # Number of workers in the pizzeria
-  NumberOfOvens: 2     # Number of Ovens in the pizzeria
-  NumberOfOrders: 500  # Number of Orders to take
+  NumberOfWorkers: 1   # Number of workers in the pizzeria
+  NumberOfOvens: 3     # Number of Ovens in the pizzeria
+  NumberOfOrders: 3  # Number of Orders to take

@@ -1,4 +1,4 @@
-// This package define the implementation of an order
+// This file define the implementation of an order
 
 package components
 
