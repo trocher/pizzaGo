@@ -1,9 +1,12 @@
-times: # Times to perform each step in miliseconds (integers > 0)
+# Config file for PizzaGo
+# Each value must be an integer strictly positive
+
+times: # Times to perform each step in miliseconds
   process: 1
   prepare: 2
   bake: 5
   qualityCheck: 1
 parameters: 
-  NumberOfWorkers: 2   # Number of workers in the pizzeria, (integer > 0)
-  NumberOfOvens: 2     # Number of Ovens in the pizzeria, (integer > 0)
-  NumberOfOrders: 500  # Number of Orders that will be taken by the pizzeria, (integer > 0)
+  NumberOfWorkers: 2   # Number of workers in the pizzeria
+  NumberOfOvens: 2     # Number of Ovens in the pizzeria
+  NumberOfOrders: 500  # Number of Orders to take
