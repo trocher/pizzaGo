@@ -11,11 +11,14 @@ import (
 	"time"
 )
 
+// Interface of a PizzaBaker
 type PizzaBaker interface {
 	ProcessOrder() Order
-	Prepare(order Order, oven *PizzaOven) *Pizza
+	Prepare(order Order) *Pizza
 	QualityCheck(pizza *Pizza) (*Pizza, error)
 	Work()
+	FindOven() *Oven
+	ReleaseOven(o *Oven)
 }
 
 type PizzaWorker struct {
@@ -29,10 +32,9 @@ func (w *PizzaWorker) ProcessOrder() Order {
 	return Order{orderId}
 }
 
-func (w *PizzaWorker) Prepare(order Order, oven *PizzaOven) *Pizza {
+func (w *PizzaWorker) Prepare(order Order) *Pizza {
 	timing.WaitFor(configs.Timings.Prepare)
-	timing.WaitFor(configs.Timings.Bake)
-	return &Pizza{true}
+	return &Pizza{false}
 }
 
 func (w *PizzaWorker) QualityCheck(pizza *Pizza) (*Pizza, error) {
@@ -78,7 +80,8 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 
 		order := w.ProcessOrder()
 		oven := w.FindOven()
-		pizza := w.Prepare(order, oven)
+		pizza := w.Prepare(order)
+		*pizza = oven.Bake(*pizza)
 		w.ReleaseOven(oven)
 		pizza, error := w.QualityCheck(pizza)
 

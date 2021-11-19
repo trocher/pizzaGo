@@ -1,9 +1,7 @@
 package components
 
 import (
-	"fmt"
 	"pizzago/internal/configs"
-	"pizzago/internal/timing"
 )
 
 // === Pizza definition ===
@@ -18,15 +16,3 @@ func InitOven() {
 		ovenList[i] = PizzaOven{isUsed: 0}
 	}
 }
-
-func (o PizzaOven) Bake(unbakedPizza Pizza) Pizza {
-	if unbakedPizza.isBaked {
-		fmt.Println("That is weird, this pizza is already baked")
-		return unbakedPizza
-	}
-	timing.WaitFor(configs.Timings.Bake)
-	unbakedPizza.isBaked = true
-	return unbakedPizza
-}
-
-// === Pizza backer ===
