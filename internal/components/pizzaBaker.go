@@ -19,7 +19,8 @@ type PizzaBaker interface {
 }
 
 type PizzaWorker struct {
-	Name uint64
+	Name            uint64
+	HasAssignedOven bool
 }
 
 func (w *PizzaWorker) ProcessOrder() Order {
@@ -44,6 +45,9 @@ func (w *PizzaWorker) QualityCheck(pizza *Pizza) (*Pizza, error) {
 }
 
 func (w *PizzaWorker) FindOven() *PizzaOven {
+	if w.HasAssignedOven {
+		return &ovenList[w.Name-1]
+	}
 	for {
 		for i := range ovenList {
 			if atomic.CompareAndSwapUint64(&(ovenList[i].isUsed), 0, w.Name) {
@@ -54,6 +58,9 @@ func (w *PizzaWorker) FindOven() *PizzaOven {
 }
 
 func (w *PizzaWorker) ReleaseOven(o *PizzaOven) {
+	if w.HasAssignedOven {
+		return
+	}
 	if !atomic.CompareAndSwapUint64(&(o.isUsed), w.Name, 0) {
 		log.Printf("Pizza worker " + strconv.FormatUint(w.Name, 10) + " : Someone is using my oven")
 	}
@@ -61,6 +68,11 @@ func (w *PizzaWorker) ReleaseOven(o *PizzaOven) {
 
 func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 	defer wg.Done()
+
+	if configs.Parameters.NumberOfOven >= uint64(configs.Parameters.NumberOfWorker) {
+		w.HasAssignedOven = true
+		ovenList[w.Name-1].isUsed = w.Name
+	}
 	for atomic.LoadUint64(&orderTaken) < configs.Parameters.NumberOfOrder {
 		start := time.Now()
 

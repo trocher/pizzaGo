@@ -20,7 +20,7 @@ func main() {
 
 	for i := 0; i < configs.Parameters.NumberOfWorker; i++ {
 		fmt.Println("Waking up worker " + strconv.Itoa(i))
-		pizzaWorkers[i] = components.PizzaWorker{Name: uint64(i + 1)}
+		pizzaWorkers[i] = components.PizzaWorker{Name: uint64(i + 1), HasAssignedOven: false}
 		wg.Add(1)
 	}
 	log.Printf("Starting the pizzeria")
