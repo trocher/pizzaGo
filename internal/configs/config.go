@@ -1,20 +1,57 @@
-package configs
+// The package configs is used to configure the pizzeria parameters
+package config
 
-type TimingsConfig struct {
-	Process      uint64
-	Prepare      uint64
-	Bake         uint64
-	QualityCheck uint64
+import (
+	"log"
+	"os"
+
+	"gopkg.in/yaml.v2"
+)
+
+// Config type used to store all the parameters that can be modified into the yaml
+type Config struct {
+	Times struct {
+		Process      uint64 `yaml:"process"`
+		Prepare      uint64 `yaml:"prepare"`
+		Bake         uint64 `yaml:"bake"`
+		QualityCheck uint64 `yaml:"qualityCheck"`
+	} `yaml:"times"`
+	Parameters struct {
+		NumberOfWorkers uint64 `yaml:"NumberOfWorkers"`
+		NumberOfOvens   uint64 `yaml:"NumberOfOvens"`
+		NumberOfOrders  uint64 `yaml:"NumberOfOrders"`
+	} `yaml:"parameters"`
 }
 
-var Timings = TimingsConfig{1, 2, 5, 1}
+func ReadConfig(config *Config) {
+	if len(os.Args) == 1 {
+		log.Fatal("Please specify a config file")
+	}
+	f, error := os.Open(os.Args[1])
+	if error != nil {
+		log.Fatal(error)
+	}
+	defer f.Close()
 
-type HyperParameters struct {
-	NumberOfWorker uint64
-	NumberOfOven   uint64
-	NumberOfOrder  uint64
+	decoder := yaml.NewDecoder(f)
+	error = decoder.Decode(&config)
+	if error != nil {
+		log.Fatal(error)
+	}
+	if !verifyConfig(config) {
+		log.Fatal("The config file is not valid")
+	}
+
 }
-
-var Parameters = HyperParameters{2, 2, 500}
-
-var SlowFactor uint64 = 1
+func verifyConfig(config *Config) bool {
+	if config.Times.Process == 0 ||
+		config.Times.Prepare == 0 ||
+		config.Times.Bake == 0 ||
+		config.Times.QualityCheck == 0 ||
+		config.Parameters.NumberOfWorkers == 0 ||
+		config.Parameters.NumberOfOvens == 0 ||
+		config.Parameters.NumberOfOrders == 0 {
+		return false
+	}
+	return true
+}

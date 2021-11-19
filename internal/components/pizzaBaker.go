@@ -3,8 +3,6 @@ package components
 import (
 	"errors"
 	"log"
-	"pizzago/internal/configs"
-	"pizzago/internal/timing"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -28,17 +26,17 @@ type PizzaWorker struct {
 
 func (w *PizzaWorker) ProcessOrder() Order {
 	orderId := atomic.AddUint64(&OrderTaken, 1)
-	timing.WaitFor(configs.Timings.Process)
+	WaitFor(Config.Times.Process)
 	return Order{orderId}
 }
 
 func (w *PizzaWorker) Prepare(order Order) *Pizza {
-	timing.WaitFor(configs.Timings.Prepare)
+	WaitFor(Config.Times.Prepare)
 	return &Pizza{false}
 }
 
 func (w *PizzaWorker) QualityCheck(pizza *Pizza) (*Pizza, error) {
-	timing.WaitFor(configs.Timings.QualityCheck)
+	WaitFor(Config.Times.QualityCheck)
 	if !pizza.isBaked {
 		return pizza, errors.New("Pizza worker " + strconv.FormatUint(w.Name, 10) + " : Sorry I forgot to bake your pizza")
 	}
@@ -71,13 +69,12 @@ func (w *PizzaWorker) ReleaseOven(o *PizzaOven) {
 func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	if configs.Parameters.NumberOfOven >= uint64(configs.Parameters.NumberOfWorker) {
+	if Config.Parameters.NumberOfOvens >= uint64(Config.Parameters.NumberOfWorkers) {
 		w.HasAssignedOven = true
 		ovenList[w.Name-1].isUsed = w.Name
 	}
-	for atomic.LoadUint64(&OrderTaken) < configs.Parameters.NumberOfOrder {
+	for atomic.LoadUint64(&OrderTaken) < Config.Parameters.NumberOfOrders {
 		start := time.Now()
-
 		order := w.ProcessOrder()
 		oven := w.FindOven()
 		pizza := w.Prepare(order)
