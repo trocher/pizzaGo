@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"sync"
 	"sync/atomic"
-	"time"
 )
 
 // Interface of a PizzaBaker
@@ -26,16 +25,19 @@ type PizzaBaker interface {
 type PizzaWorker struct {
 	Name            uint64
 	HasAssignedOven bool
+	orderTaken      *uint64
+	ovenList        *[]PizzaOven
+	orderDelivered  *uint64
 }
 
 // Process an order
 func (w *PizzaWorker) ProcessOrder() (Order, error) {
 	// Increment atomically the counter of taken order
-	orderId := atomic.AddUint64(&OrderTaken, 1)
+	orderId := atomic.AddUint64(w.orderTaken, 1)
 	// If the order that has been taken is above the limit, cancel it.
 	if orderId > Config.Parameters.NumberOfOrders {
-		atomic.SwapUint64(&OrderTaken, Config.Parameters.NumberOfOrders)
-		return Order{orderId}, errors.New("Oups, I took too much order")
+		atomic.SwapUint64(w.orderTaken, Config.Parameters.NumberOfOrders)
+		return Order{orderId}, errors.New("Worker " + strconv.FormatUint(w.Name, 10) + " Oups, I took too much order, I won't do this one")
 	}
 	WaitFor(Config.Times.Process)
 	return Order{orderId}, nil
@@ -51,7 +53,7 @@ func (w *PizzaWorker) Prepare(order Order) *Pizza {
 func (w *PizzaWorker) QualityCheck(pizza *Pizza) (*Pizza, error) {
 	WaitFor(Config.Times.QualityCheck)
 	if !pizza.isBaked {
-		return pizza, errors.New("Pizza worker " + strconv.FormatUint(w.Name, 10) + " : Sorry I forgot to bake your pizza")
+		return pizza, errors.New("Worker " + strconv.FormatUint(w.Name, 10) + " : Sorry I forgot to bake your pizza")
 	}
 	return pizza, nil
 
@@ -63,12 +65,12 @@ func (w *PizzaWorker) QualityCheck(pizza *Pizza) (*Pizza, error) {
 // by writting his uid in the isUsed field.
 func (w *PizzaWorker) FindOven() *PizzaOven {
 	if w.HasAssignedOven {
-		return &ovenList[w.Name-1]
+		return &(*w.ovenList)[w.Name-1]
 	}
 	for {
-		for i := range ovenList {
-			if atomic.CompareAndSwapUint64(&(ovenList[i].isUsed), 0, w.Name) {
-				return &ovenList[i]
+		for i := range *w.ovenList {
+			if atomic.CompareAndSwapUint64(&((*w.ovenList)[i].isUsed), 0, w.Name) {
+				return &(*w.ovenList)[i]
 			}
 		}
 	}
@@ -81,24 +83,19 @@ func (w *PizzaWorker) ReleaseOven(o *PizzaOven) {
 		return
 	}
 	if !atomic.CompareAndSwapUint64(&(o.isUsed), w.Name, 0) {
-		log.Printf("Pizza worker " + strconv.FormatUint(w.Name, 10) + " : Someone is using my oven")
+		log.Printf("Worker " + strconv.FormatUint(w.Name, 10) + " : Someone is using my oven")
 	}
 }
 
 // Main function of a worker
-func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
+func (w PizzaWorker) Work(wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	// If there are less workers than ovens, then the worker can claim an oven, he
-	// clain the oven w.Name-1
-	if Config.Parameters.NumberOfOvens >= uint64(Config.Parameters.NumberOfWorkers) {
-		w.HasAssignedOven = true
-		ovenList[w.Name-1].isUsed = w.Name
-	}
-
+	numberOfOrders := uint64(0)
+	//start := time.Now()
+	WaitFor(100)
 	// Loop that goes on while there are still orders to be taken care of
-	for atomic.LoadUint64(&OrderTaken) < Config.Parameters.NumberOfOrders {
-		start := time.Now()
+	for atomic.LoadUint64(w.orderTaken) < Config.Parameters.NumberOfOrders {
 
 		order, error := w.ProcessOrder()
 		// If the worker managed to enter this loop with other workers when there was
@@ -123,9 +120,11 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 
 		// Increment the number of delivered order, used to check the correcness
 		// of the program
-		atomic.AddUint64(&OrderDelivered, 1)
+		numberOfOrders += 1
+		atomic.AddUint64(w.orderDelivered, 1)
 
-		elapsed := time.Since(start)
-		log.Printf("Order %d took %s", order.id, elapsed)
 	}
+	//elapsed := time.Since(start)
+	//log.Printf("Worker %d Took %s to do %d orders", w.Name, elapsed, numberOfOrders)
+
 }
