@@ -4,16 +4,12 @@ This is an implementation of the Pizza Maker, it runs a pizzeria that must serve
 
 ## Requirement
 
-----------
-
 To be able to use a yaml configuration file, the package [yaml](https://github.com/go-yaml/yaml) was used, to install it, run:
 
     go get gopkg.in/yaml.v2
 
 
 ## Configuration
-
-----------
 
 To run the program, a yaml config file must be provided. The package internal/config provide a [sample file](config/config.yml) that can be used and modified. An example of such file is shown below.
 ```yml
@@ -33,8 +29,6 @@ parameters:
 ```
 ## How to run it
 
-----------
-
 The project can be run as follow :
 
     go run [Path to main.go] [path to config.yml]
@@ -46,8 +40,6 @@ For example, when trying to run the project from its root using the sample confi
 
 ## Descriptions of the project
 
-----------
-
 ### [Config](internal/configs/config.go)
 The config package is simply here to read the yaml file, verify some property on the contained values and populate a ```Config``` struct that will be used by the rest of the packages.
 
@@ -55,8 +47,6 @@ The config package is simply here to read the yaml file, verify some property on
 The timing file is used to provide an abstraction to the process of waiting for the differents times given in the config file.
 
 It also provide the calculation of the ```expected time```. This is the time it would take to treat all the order from a theoritical point of view. It does not consider the overhead produced by go and hence should always be smaller than the real elapsed time. This will be discussed later when analysing the performance of the implementation.
-
-----------
 
 ### [Pizza Bakers](internal/components/pizzaBaker.go)
 
@@ -75,8 +65,6 @@ Once the pizza is baked, the pizza baker can finally check its quality and repea
 
 If all clients have been served, he can go to sleep.
 
-----------
-
 ### [Clients and Orders](internal/components/order.go)
 
 We assume that clients are already waiting in front of the store at the begining of the "day", (i.e. bakers will never wait for clients)
@@ -89,8 +77,6 @@ An order will hence have an uid that goes from 1 to ```OrderTaken```
 
 To ensure that two bakers does not take the same order twice in the confusion, access to this counter are done using atomic operations. Another option would have been to attribute a specific slice of the client list to each baker. (for example baker1 has orders 1 to 100, baker2 has orders 101 to 200, etc...) however this would mean that clients order's are not taking in order, which is not consistent with the reality.
 
-----------
-
 ### [Ovens](internal/components/oven.go)
 
 The number of ovens can be configured using the ```NumberOfOvens``` field of the config file.
@@ -99,8 +85,6 @@ An oven can hold one pizza at a time and takes the time specified in the config 
 
 The field ```isUsed``` of the ```PizzaOven``` struct is used by the pizza bakers looking for an empty oven to know if it is available. If it is equal to 0, this means that the oven is available, otherwise, it is set to the uid of the pizza worker currently using it.
 This field is always read or written using atomic operations to ensure that two bakers doesn't try to use it a the same times. It act as a lock.
-
-----------
 
 ### [Pizzeria](internal/components/pizzeria.go)
 
@@ -153,7 +137,7 @@ To release the oven, the worker atomically swap the value back to 0 in a similar
 atomic.CompareAndSwapUint64(&(o.isUsed), w.Name, 0)
 ```
 
-### Delivered Orders
+### The delivered Orders counter
 
 The counter ```OrderDelivered``` is the last object accessed concurrently, the same logic as the order counter is used here as it is only incremented using the following function:
 ```go
