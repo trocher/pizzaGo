@@ -11,7 +11,7 @@ import (
 func main() {
 	log.Printf("Starting pizzaGo ...")
 
-	// Run the pizzeria while timing it to be able to benchmark its performances
+	// Run the pizzeria while timing it
 	start := time.Now()
 	var cfg config.Config
 	config.ReadConfig(&cfg)
