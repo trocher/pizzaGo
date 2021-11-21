@@ -4,6 +4,7 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 
 	"gopkg.in/yaml.v2"
 )
@@ -11,10 +12,10 @@ import (
 // Config type used to store all the parameters that can be modified into the yaml
 type Config struct {
 	Times struct {
-		Process      uint8 `yaml:"process"`
-		Prepare      uint8 `yaml:"prepare"`
-		Bake         uint8 `yaml:"bake"`
-		QualityCheck uint8 `yaml:"qualityCheck"`
+		Process      uint64 `yaml:"process"`
+		Prepare      uint64 `yaml:"prepare"`
+		Bake         uint64 `yaml:"bake"`
+		QualityCheck uint64 `yaml:"qualityCheck"`
 	} `yaml:"times"`
 	Parameters struct {
 		NumberOfWorkers uint64 `yaml:"NumberOfWorkers"`
@@ -26,9 +27,40 @@ type Config struct {
 // Read the yaml specified as an argument to initialize the values of the given config
 func ReadConfig(config *Config) {
 	// If no path to yaml is specified, exit
-	if len(os.Args) == 1 {
-		log.Fatal("Please specify a config file")
+	switch len(os.Args) {
+	case 2:
+		yamlConfig(config)
+	case 8:
+		manualConfig(config)
+	default:
+		log.Fatal("Incorrect arguments")
+
 	}
+	// Verify that the values of the configurations are correct
+	if !verifyConfig(config) {
+		log.Fatal("The config file is not valid")
+	}
+
+}
+
+func readArg(i uint64) uint64 {
+	x, err := strconv.ParseUint(os.Args[i], 10, 64)
+	if err != nil {
+		log.Fatal("Incorrect arguments")
+	}
+	return x
+
+}
+func manualConfig(config *Config) {
+	config.Times.Process = readArg(1)
+	config.Times.Prepare = readArg(2)
+	config.Times.Bake = readArg(3)
+	config.Times.QualityCheck = readArg(4)
+	config.Parameters.NumberOfWorkers = readArg(5)
+	config.Parameters.NumberOfOvens = readArg(6)
+	config.Parameters.NumberOfOrders = readArg(7)
+}
+func yamlConfig(config *Config) {
 	f, error := os.Open(os.Args[1])
 	// If there was an error while opening the file, exit
 	if error != nil {
@@ -41,11 +73,6 @@ func ReadConfig(config *Config) {
 	if error != nil {
 		log.Fatal(error)
 	}
-	// Verify that the values of the configurations are correct
-	if !verifyConfig(config) {
-		log.Fatal("The config file is not valid")
-	}
-
 }
 
 // Verify that the yaml does not contain null values
