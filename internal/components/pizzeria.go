@@ -2,9 +2,8 @@
 package components
 
 import (
-	"fmt"
-	config "pizzago/internal/config"
-	"strconv"
+	"log"
+	"pizzago/internal/config"
 	"sync"
 )
 
@@ -13,18 +12,17 @@ type Pizza struct {
 	isBaked bool
 }
 
+// An order is defined by its id
+type Order struct {
+	id uint64
+}
+
 // The config that will be used for the run
 var Config config.Config
 
-// The slice containing all the pizza workers
-var pizzaWorkers []PizzaWorker
-
-// The slice containing all the ovens
-var ovenList []PizzaOven
-
 // Initialize a slice of ovens of size 'NumberOfOvens'
 func InitOvens() []PizzaOven {
-	var ovenList = make([]PizzaOven, Config.Parameters.NumberOfOvens)
+	ovenList := make([]PizzaOven, Config.Parameters.NumberOfOvens)
 	for i := uint64(0); i < Config.Parameters.NumberOfOvens; i++ {
 		ovenList[i] = PizzaOven{isUsed: 0}
 	}
@@ -33,23 +31,37 @@ func InitOvens() []PizzaOven {
 
 // Initialize a slice of bakers of size 'NumberOfWorkers', the uid of the bakers
 // goes from 1 to NumberOfWorkers
-func InitBakers() []PizzaWorker {
-	var pizzaWorkers = make([]PizzaWorker, Config.Parameters.NumberOfWorkers)
+func InitBakers(hasAssignedOven bool, ovenList *[]PizzaOven, orderTaken *uint64, orderDelivered *uint64) []PizzaWorker {
+	pizzaWorkers := make([]PizzaWorker, Config.Parameters.NumberOfWorkers)
 	for i := range pizzaWorkers {
-		fmt.Println("Waking up worker " + strconv.Itoa(i))
-		pizzaWorkers[i] = PizzaWorker{Name: uint64(i + 1), HasAssignedOven: false}
+		//log.Printf("Waking up worker %d ", i)
+		pizzaWorkers[i] = PizzaWorker{Name: uint64(i + 1), HasAssignedOven: hasAssignedOven, ovenList: ovenList, orderTaken: orderTaken, orderDelivered: orderDelivered}
 	}
 	return pizzaWorkers
 }
 
 // The main function of the pizzeria, used to start it.
-func StartPizzeria() {
+func StartPizzeria(withConfig config.Config) {
 	// Read the configuration specified
-	config.ReadConfig(&Config)
-	// Initialize the ovens
-	ovenList = InitOvens()
-	// Initialize the bakers
-	pizzaWorkers = InitBakers()
+	Config = withConfig
+
+	// ==== Initializations ====
+
+	ovenList := InitOvens()
+
+	var orderTaken uint64 = 0
+	var orderDelivered uint64 = 0
+
+	// If there are less workers than ovens, then the worker can claim an oven, he
+	// claim the oven w.Name-1
+	hasAssignedOven := false
+	if Config.Parameters.NumberOfOvens >= uint64(Config.Parameters.NumberOfWorkers) {
+		hasAssignedOven = true
+	}
+
+	pizzaWorkers := InitBakers(hasAssignedOven, &ovenList, &orderTaken, &orderDelivered)
+
+	// ==== Start the bakers =====
 
 	// A waitGroup that will be helpful to wait for all
 	// bakers before returning
@@ -58,8 +70,12 @@ func StartPizzeria() {
 	// Start a GoRoutine for each baker
 	for _, pizzaWorker := range pizzaWorkers {
 		wg.Add(1)
-		go pizzaWorker.Work(&wg)
+		go (pizzaWorker).Work(&wg)
 	}
 	// Wait for all bakers
 	wg.Wait()
+
+	if (orderTaken != orderDelivered) && (orderTaken != Config.Parameters.NumberOfOrders) {
+		log.Fatal("The number of order taken is different from the number of delivered orders")
+	}
 }
