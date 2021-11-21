@@ -8,14 +8,17 @@ import (
 )
 
 func main() {
-	log.Printf("Starting pizzago ...")
+	log.Printf("Starting pizzaGo ...")
 
 	// Run the pizzeria while timing it to be able to benchmark its performances
 	start := time.Now()
 	components.StartPizzeria()
 	elapsed := time.Since(start)
-
 	expectedTime := components.ExpectedTime()
+
+	if components.OrderTaken != components.OrderDelivered {
+		log.Fatal("The number of order taken is different from the number of delivered orders")
+	}
 	log.Printf("Took %s to cook %d pizzas with %d workers and %d ovens", elapsed, components.Config.Parameters.NumberOfOrders, components.Config.Parameters.NumberOfWorkers, components.Config.Parameters.NumberOfOvens)
 	log.Printf("overhead was %s (%d%%) as time taken is %s and expected time would be %s ", elapsed-expectedTime, int((float64(elapsed)/float64(expectedTime))*100)-100, elapsed, expectedTime)
 }
