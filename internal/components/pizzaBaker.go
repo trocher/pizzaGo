@@ -108,28 +108,10 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 			break
 		}
 
-		elapsed := time.Since(start)
-		log.Printf("ProcessOrder %d took %s", order.id, elapsed)
-
-		start = time.Now()
-
 		pizza := w.Prepare(order)
-
-		elapsed = time.Since(start)
-		log.Printf("prepare %d took %s", order.id, elapsed)
-
 		oven := w.FindOven()
-
-		start = time.Now()
-
 		*pizza = oven.Bake(*pizza)
-
-		elapsed = time.Since(start)
-		log.Printf("bake %d took %s", order.id, elapsed)
-
 		w.ReleaseOven(oven)
-
-		start = time.Now()
 
 		pizza, error = w.QualityCheck(pizza)
 
@@ -138,15 +120,12 @@ func (w *PizzaWorker) Work(wg *sync.WaitGroup) {
 		if error != nil {
 			log.Fatal(error)
 		}
-		elapsed = time.Since(start)
-		log.Printf("qualitycheck %d took %s", order.id, elapsed)
-		start = time.Now()
 
 		// Increment the number of delivered order, used to check the correcness
 		// of the program
 		atomic.AddUint64(&OrderDelivered, 1)
 
-		elapsed = time.Since(start)
+		elapsed := time.Since(start)
 		log.Printf("Order %d took %s", order.id, elapsed)
 	}
 }
