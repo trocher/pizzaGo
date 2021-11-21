@@ -1,4 +1,4 @@
-// This package provide the definition and implementation of an oven
+// This file provide the definition and implementation of an oven
 package components
 
 // Interface of an oven
@@ -7,8 +7,8 @@ type Oven interface {
 }
 
 // Implementation of an oven, isUsed is used as a lock by workers, i.e, when it is
-// is equal to 0, it is free to use, otherwise, a worker will set th value to its
-// own uid to specify that he is using it
+// equal to 0, it is free to use, otherwise, a worker will set the value to its
+// own uid to indicate that he is using it.
 type PizzaOven struct {
 	isUsed uint64
 }
