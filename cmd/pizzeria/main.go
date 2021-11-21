@@ -16,7 +16,7 @@ func main() {
 	elapsed := time.Since(start)
 	expectedTime := components.ExpectedTime()
 
-	if components.OrderTaken != components.OrderDelivered {
+	if (components.OrderTaken != components.OrderDelivered) && (components.OrderTaken != components.Config.Parameters.NumberOfOrders) {
 		log.Fatal("The number of order taken is different from the number of delivered orders")
 	}
 	log.Printf("Took %s to cook %d pizzas with %d workers and %d ovens", elapsed, components.Config.Parameters.NumberOfOrders, components.Config.Parameters.NumberOfWorkers, components.Config.Parameters.NumberOfOvens)

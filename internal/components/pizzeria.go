@@ -3,11 +3,9 @@ package components
 
 import (
 	"fmt"
-	"log"
-	config "pizzago/internal/configs"
+	config "pizzago/internal/config"
 	"strconv"
 	"sync"
-	"time"
 )
 
 // Type to describe a pizza that can either be baked or not.
@@ -56,7 +54,6 @@ func StartPizzeria() {
 	// A waitGroup that will be helpful to wait for all
 	// bakers before returning
 	var wg sync.WaitGroup
-	start := time.Now()
 
 	// Start a GoRoutine for each baker
 	for _, pizzaWorker := range pizzaWorkers {
@@ -65,7 +62,4 @@ func StartPizzeria() {
 	}
 	// Wait for all bakers
 	wg.Wait()
-	elapsed := time.Since(start)
-	log.Printf("took %s time", elapsed)
-
 }

@@ -11,7 +11,11 @@ To be able to use a yaml configuration file, the package [yaml](https://github.c
 
 ## Configuration
 
-To run the program, a yaml config file must be provided. The package internal/config provide a [sample file](config/config.yml) that can be used and modified. An example of such file is shown below.
+To run the program, two possibilities are available :
+
+### Using a yaml config file
+
+The folder config provide a [sample file](config/config.yml) that can be used and modified. An example of such file is shown below.
 ```yml
 # Config file for PizzaGo
 # Each value must be an integer strictly positive
@@ -27,20 +31,32 @@ parameters:
   NumberOfOrders: 500  # Number of Orders to take
 
 ```
+
+### By specifying all arguments on the commandline
+
+For the sake of being able to run the program many times with different parameters, it is also possible to input all the parameters values in the ```go run``` command in the order described below.
 ## How to run it
 
 The project can be run as follow :
 
     go run [Path to main.go] [path to config.yml]
 
+or as follow :
+
+    go run [Path to main.go] [processTime] [preparationTime] [bakingTime] [qualityCheckTime] [nbOfWorkers] [nbOfOvens] [nbOfOrders]
+
 For example, when trying to run the project from its root using the sample config file:
 
-    go run cmd/pizzeria/main.go config/config.yml
+    go run cmd/pizzeria/main.go configs/config.yml
+
+Or when trying to run the project from its root using the values as above :
+
+    go run cmd/pizzeria/main.go 1 2 5 1 2 2 500
 
 
 ## Descriptions of the project
 
-### [Config](internal/configs/config.go)
+### [Config](internal/config/config.go)
 The config package is simply here to read the yaml file, verify some property on the contained values and populate a ```Config``` struct that will be used by the rest of the packages.
 
 ### [Timing](internal/components/timing.go)
@@ -130,7 +146,7 @@ The field ```isUsed``` of an oven is its lock, indeed, when a baker is looking f
 ````go
 atomic.CompareAndSwapUint64(&(ovenList[i].isUsed), 0, w.Name)
 ````
-When the ```CompareAndSwapUint64``` he know for sure that his uid has been placed in ```isUsed``` and that the oven is his as anyone trying to claim it will also use the ```CompareAndSwapUint64``` function which will fail as ```isUsed``` is no longer 0.
+When the ```CompareAndSwapUint64``` returns true, he know for sure that his uid has been placed in ```isUsed``` and that the oven is his as anyone trying to claim using the ```CompareAndSwapUint64``` will fail as ```isUsed``` is no longer 0.
 
 To release the oven, the worker atomically swap the value back to 0 in a similar fashion :
 ```go
@@ -144,3 +160,38 @@ The counter ```OrderDelivered``` is the last object accessed concurrently, the s
 atomic.AddUint64(&OrderDelivered, 1)
 ```
 This value is mostly used to debug the program and ensure its correctness so we wont discuss it further here.
+
+## Analysis of the throughput and the latency
+
+When analysing both the throughput and the latency of the implementation, we are going to use two notions : the theoritical values and the real ones, we describe now the difference.
+
+### Theoritical versus Real values
+
+Compared to the theoritical values, the real one can varie a lot depending on multiple factors. For example, the OS or the load on the computer at the moment the code is ran can have influence on its running time.
+
+One major variable found when implementing the project was the time taken by the following call used to simulate the time taken by each step of the pizza making:
+```go
+time.Sleep(time.Duration(t) * time.Millisecond)
+```
+indeed, according to the ```time``` package [documentation](https://pkg.go.dev/time#Sleep),
+> Sleep pauses the current goroutine for at least the duration d
+
+We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more. For example using two differents environment, when trying to sleep for 5ms multiple times, one was in fact sleeping for 6.25 ms in average when the other one was sleeping for 5.20 ms in average. When doing some tests in differents machine, it appear that linux configurations tends to be the more precise, we will hence benchmark the pizzeria on a computer running ubuntu 18.04.
+
+### Theoritical values
+
+The throughput of the implementation is quite easy to compute. We first compute the bottleneck of the pizzeria :
+
+````
+bottleneck = min(NumberOfWorkers,NumberOfOvens)
+````
+we then compute the time taken to produce a single pizza:
+````go
+pizzaCookingTime = bakingTime+preparationTime+processTime+qualityCheckTime (in ms)
+````
+We hence get :
+```
+throughput = bottleneck/pizzaCookingTime (pizza/ms)
+```
+
+For example, using 2 workers 
