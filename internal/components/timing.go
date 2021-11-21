@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-func WaitFor(t uint8) {
+func WaitFor(t uint64) {
 	time.Sleep(time.Duration(t) * time.Millisecond)
 }
 
