@@ -11,7 +11,7 @@ import (
 func main() {
 	log.Printf("Starting pizzaGo ...")
 
-	// Run the pizzeria while timing it
+	// Run the pizzeria while timing it before printing average throughput and latency
 	start := time.Now()
 	var cfg config.Config
 	config.ReadConfig(&cfg)
@@ -19,5 +19,5 @@ func main() {
 	elapsed := time.Since(start)
 
 	log.Printf("Took %s to cook %d pizzas with %d workers and %d ovens", elapsed, components.Config.Parameters.NumberOfOrders, components.Config.Parameters.NumberOfWorkers, components.Config.Parameters.NumberOfOvens)
-	log.Printf("Average throuput of : %f pizza/ms and latency of %d ms/pizza", float64(components.Config.Parameters.NumberOfOrders)/float64(time.Duration(elapsed).Milliseconds()), latency)
+	log.Printf("Average throuput of : %f pizza/ms and latency of %s ms/pizza", float64(components.Config.Parameters.NumberOfOrders)/float64(time.Duration(elapsed).Milliseconds()), latency)
 }

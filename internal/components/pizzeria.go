@@ -36,23 +36,20 @@ func InitOvens() []PizzaOven {
 func InitBakers(hasAssignedOven bool, ovenList *[]PizzaOven, orderTaken *uint64, timeTakenTakingOrders *uint64) []PizzaWorker {
 	pizzaWorkers := make([]PizzaWorker, Config.Parameters.NumberOfWorkers)
 	for i := range pizzaWorkers {
-		//log.Printf("Waking up worker %d ", i)
 		pizzaWorkers[i] = PizzaWorker{Name: uint64(i + 1), HasAssignedOven: hasAssignedOven, ovenList: ovenList, orderTaken: orderTaken, timeTakenTakingOrders: timeTakenTakingOrders}
 	}
 	return pizzaWorkers
 }
 
 // The main function of the pizzeria, used to start it.
-func StartPizzeria(withConfig config.Config) uint64 {
+func StartPizzeria(withConfig config.Config) time.Duration {
 	// Read the configuration specified
 	Config = withConfig
 
 	// ==== Initializations ====
 
 	ovenList := InitOvens()
-	//for i := range ovenList {
-	//	log.Printf("real address of %d is %p ", i, &((ovenList)[i].isUsed))
-	//}
+
 	var orderTaken uint64 = 0
 	var timeTakenTakingOrders uint64 = 0
 
@@ -82,5 +79,7 @@ func StartPizzeria(withConfig config.Config) uint64 {
 	if orderTaken != Config.Parameters.NumberOfOrders {
 		log.Fatal("The number of order taken is different from the number of delivered orders")
 	}
-	return uint64(time.Duration(timeTakenTakingOrders / Config.Parameters.NumberOfOrders).Milliseconds())
+
+	// compute and return the average latency
+	return time.Duration(float64(timeTakenTakingOrders) / float64(Config.Parameters.NumberOfOrders))
 }

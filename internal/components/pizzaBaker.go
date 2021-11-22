@@ -22,7 +22,8 @@ type PizzaBaker interface {
 
 // A pizza worker has a name between 1 and NumberOfWorkers
 // The flag HasAssignedOven is true if the worker has an assigned
-// oven during the shift.
+// oven during the shift. He also hold pointers to usefull slices
+// and integers
 type PizzaWorker struct {
 	Name                  uint64
 	HasAssignedOven       bool
@@ -74,6 +75,7 @@ func (w *PizzaWorker) FindOven() *PizzaOven {
 				return &(*w.ovenList)[i]
 			}
 		}
+		WaitFor(1)
 	}
 }
 
