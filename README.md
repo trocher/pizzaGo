@@ -1,6 +1,6 @@
 # PizzaGo
 
-This is an implementation of a Pizza Maker, it runs a pizzeria that must serves a given amount of pizzas.
+This is an implementation of a Pizza Maker, it runs a pizzeria that must serve a given amount of pizzas.
 
 ## Requirement
 
@@ -66,14 +66,14 @@ The timing file is used to provide an abstraction to the process of waiting for 
 
 Pizza bakers are working together concurently to serve all pizzas as fast as possible. The number of pizza bakers can be configured using the ```NumberOfBakers``` field of the config file.
 
-A baker as an uid that goes from 1 to ```NumberOfBakers```.
+A baker has an uid that goes from 1 to ```NumberOfBakers```.
 
-A pizza baker job is simple, if all the clients' orders haven't been taken yet, he takes an order and prepare the pizza. 
+A pizza baker job is simple, if all the clients' orders have not been taken yet, he takes an order and prepares the pizza. 
 
 To bake the pizza, two cases can happen :
 
-- If there are there are at least as many oven than pizza bakers, then an oven as been attributed to the baker so he can just use it to bake the pizza.
-- Otherwise, he try to find an oven he can use, if no oven are available, he wait until one is.
+- If there are at least as many oven than pizza bakers, then an oven has been attributed to the baker so he can just use it to bake the pizza.
+- Otherwise, he tries to find an oven he can use, if no oven is available, he waits until one is.
 
 Once the pizza is baked, the pizza baker can finally check its quality and repeat the process for the next client.
 
@@ -89,37 +89,37 @@ To monitor which client's order has already been taken, the counter ```OrderTake
 
 An order will hence have an uid that goes from 1 to ```NumberOfOrders```
 
-To ensure that two bakers does not take the same order twice in the confusion, access to this counter are done using atomic operations. Another option would have been to attribute a specific slice of the client list to each baker. (for example baker1 has orders 1 to 100, baker2 has orders 101 to 200, etc...) however this would mean that clients order's are not taking in order, which is not consistent with the reality.
+To ensure that two bakers do not take the same order twice in the confusion, access to this counter is done using atomic operations. Another option would have been to attribute a specific slice of the client list to each baker. (for example baker1 has orders 1 to 100, baker2 has orders 101 to 200, etc...) however this would mean that clients' orders are not taken in order, which is not consistent with the reality.
 
 ### [Ovens](internal/components/oven.go)
 
 The number of ovens can be configured using the ```NumberOfOvens``` field of the config file.
 
-An oven can hold one pizza at a time and takes the time specified in the config file's ```bake``` field to cook a pizza.
+An oven can hold one pizza at a time and takes the time specified in the config file field ```bake``` to cook a pizza.
 
 The field ```isUsed``` of the ```PizzaOven``` struct is used by pizza bakers looking for an empty oven to know if it is available. If it is equal to 0, this means that the oven is available, otherwise, it is set to the uid of the pizza worker currently using it.
-This field is always read or written using atomic operations to ensure that two bakers doesn't try to use it a the same times. It act as a lock.
+This field is always read or written using atomic operations to ensure that two bakers don't try to use it at the same time. It acts as a lock.
 
 ### [Pizzeria](internal/components/pizzeria.go)
 
-This is the entry point of the pizzeria. Its function ```StartPizzeria``` is in charge of reading the config file, creating the ovens and bakers and starting each baker's Goroutine. The function will return the average latency (i.e. time for an order to be treated) once each goroutine has finished.
+This is the entry point of the pizzeria. Its function ```StartPizzeria``` is in charge of reading the config file, creating the ovens and bakers and starting each baker's Goroutine. The function will return the average latency (i.e. time for an order to be treated) once each Goroutine has finished.
 
 ## Concurency in the project
 
-At serveral point of the project, concurency has been used, indeed, since each worker is runing in its own Goroutine, all elements that are accessed by more than one of them must been accessed carefully.
+During this project, concurency was used several times, indeed, since each worker is running in its own Goroutine, all elements that are accessed by more than one of them must been accessed carefully.
 
 ### The order counter
-To increment the client queue ```OrderTaken```, bakers are using ```atomic.AddUint64``` to ensure their incrementation is indeed done properly.
+To increment the client's queue ```OrderTaken```, bakers are using ```atomic.AddUint64``` to ensure their incrementation is indeed done properly.
 
-Before taking the order of a new client, bakers are checking the following condition to know when there are no more clients:
+Before taking the order of a new client, bakers are checking the following condition to know when there are no more client:
 
 ````go
 atomic.LoadUint64(&OrderTaken) < Config.Parameters.NumberOfOrders)
 ````
 
-One issue is that between this check and the incrementation of ```OrderTaken```, it is possible that more bakers than needed manage to pass the condition and hence we would end up with more order taken than the actual number of order.
+One issue is that between this check and the incrementation of ```OrderTaken```, it is possible that more bakers than needed manage to pass the condition and hence we would end up with more orders taken than the actual number of orders.
 
-To avoid this issues we could have been using a lock, however we check the following condition after incrementing the counter instead :
+To avoid this issue we could have used a lock, however we check the following condition after incrementing the counter instead :
 
 ````go
 orderId := atomic.AddUint64(&OrderTaken, 1)
@@ -128,25 +128,25 @@ orderId := atomic.AddUint64(&OrderTaken, 1)
 		return Order{orderId}, errors.New("Oups, I took an order that was out of bound")
 	}
 ````
-It consist in reverting the counter if one worker went "too far".
+It consists in reverting the counter if one worker went "too far".
 
 ### The ovens
 
-Ovens are the other objects that are accessed by all the workers. To improve a bit the efficiency of the pizzeria, as explained earlier, two cases are possible :
+Ovens are the other objects that are accessed by all workers. To improve a bit the efficiency of the pizzeria, as explained earlier, two cases are possible :
 
-- If there are there are at least as many oven than pizza bakers, then an oven as been attributed to the baker based on its uid. Hence each worker will only access his own oven and there are no concurrency involved
+- If there are at least as many oven than pizza bakers, then an oven has been attributed to the baker based on its uid. Hence each worker will only access his own oven and there are no concurrency involved
 
-- The second case is more interesting. If there are more pizza bakers than ovens, then at some points it might be the case that 2 pizza bakers try to use the same oven concurrently. 
+- The second case is more interesting. If there are more pizza bakers than ovens, then at some point it might be possible that 2 pizza bakers try to use the same oven concurrently. 
 
-We will talk about the second case here. To ensure that only one baker use a given oven at a time, we used atomic operations again. The code that is in charge of locking an oven and releasing it can be found in the two methods ```findOven``` and ```releaseOven``` of [pizzaBaker](internal/components/pizzaBaker.go).
+We will talk about the second case here. To ensure that only one baker uses a given oven at a time, we use atomic operations again. The code that is in charge of locking an oven and releasing it can be found in the two methods ```findOven``` and ```releaseOven``` of [pizzaBaker](internal/components/pizzaBaker.go).
 
-The field ```isUsed``` of an oven is its lock, indeed, when a baker is looking for an oven, he will call ```findOven``` that will look throught all the oven trying to perform the following :
+The field ```isUsed``` of an oven is its lock, indeed, when a baker is looking for an oven, he will call ```findOven``` that will iterate on the oven list trying to perform the following :
 ````go
 atomic.CompareAndSwapUint64(&(ovenList[i].isUsed), 0, w.Name)
 ````
-When the ```CompareAndSwapUint64``` returns true, he know for sure that ```isUsed``` has been set to his uid and that anyone trying to claim the oven using the ```CompareAndSwapUint64``` will fail as ```isUsed``` is no longer 0.
+When the ```CompareAndSwapUint64``` returns true, he knows for sure that ```isUsed``` has been set to his uid and that anyone trying to claim the oven using the ```CompareAndSwapUint64``` will fail as ```isUsed``` is no longer 0.
 
-To release the oven, the worker atomically swap the value back to 0 in a similar fashion :
+To release the oven, the worker atomically swaps the value back to 0 in a similar way:
 ```go
 atomic.CompareAndSwapUint64(&(o.isUsed), w.Name, 0)
 ```
@@ -162,20 +162,20 @@ atomic.AddUint64(&timeTakenTakingOrders, uint64(elapsed))
 
 ### Theoritical versus Real values
 
-Compared to the theoritical values, the real one can varie a lot depending on multiple factors. For example, the OS or the load on the computer at the moment the code is ran can have influence on its running time.
+Compared to the theoritical values, the real ones can vary a lot depending on multiple factors. For example, the OS or the load on the computer at the moment the code is ran can have influence on its running time.
 
-One major variable found when implementing the project was the time taken by the following call used to simulate the time taken by each step of the pizza making:
+One variable found when implementing the project was the time taken by the following call used to simulate the time taken by each step of the pizza making:
 ```go
 time.Sleep(time.Duration(t) * time.Millisecond)
 ```
 indeed, according to the ```time``` package [documentation](https://pkg.go.dev/time#Sleep),
 > Sleep pauses the current goroutine for at least the duration d
 
-We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more. For example using two differents environment, when trying to sleep for 5ms multiple times, one was in fact sleeping for 6.25 ms in average when the other one was sleeping for 5.20 ms in average. When doing some tests in differents machine, it appear that linux configurations tends to be the more precise, we will hence benchmark the pizzeria on a computer running ubuntu 18.04.
+We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more.
 
 ### Throughput
 
-To obtain values for the throughput of the system, the go's benchmarking framework has been used, it can be found in [pizzeria_test.go](internal/components/pizzeria_test.go). It consist in timing multiple times runs of the pizzeria with differents ```NumberOfWorkers``` and ```NumberOfOvens``` parameters. The used configurations is described here :
+To obtain values for the throughput of the system, the go's benchmarking framework has been used, it can be found in [pizzeria_test.go](internal/components/pizzeria_test.go). It consist in timing multiple times runs of the pizzeria with different ```NumberOfWorkers``` and ```NumberOfOvens``` parameters. The used configurations are described here :
 
 ````yaml
 # Config file for PizzaGo
@@ -193,8 +193,10 @@ parameters:
 
 ````
 
-The configuration is run using the following command :
+The configuration is run using the following command in the internal/components/ directory:
 
-````
 
-````
+    go test -bench=. -benchtime=10s
+
+
+The results are the following
