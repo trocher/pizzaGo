@@ -9,4 +9,4 @@ times: # Times to perform each step in miliseconds
 parameters: 
   NumberOfWorkers: 1   # Number of workers in the pizzeria
   NumberOfOvens: 3     # Number of Ovens in the pizzeria
-  NumberOfOrders: 3  # Number of Orders to take
+  NumberOfOrders: 500  # Number of Orders to take

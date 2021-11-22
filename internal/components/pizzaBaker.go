@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"sync"
 	"sync/atomic"
+	"time"
 )
 
 // Interface of a PizzaBaker
@@ -23,11 +24,11 @@ type PizzaBaker interface {
 // The flag HasAssignedOven is true if the worker has an assigned
 // oven during the shift.
 type PizzaWorker struct {
-	Name            uint64
-	HasAssignedOven bool
-	orderTaken      *uint64
-	ovenList        *[]PizzaOven
-	orderDelivered  *uint64
+	Name                  uint64
+	HasAssignedOven       bool
+	orderTaken            *uint64
+	ovenList              *[]PizzaOven
+	timeTakenTakingOrders *uint64
 }
 
 // Process an order
@@ -68,8 +69,8 @@ func (w *PizzaWorker) FindOven() *PizzaOven {
 		return &(*w.ovenList)[w.Name-1]
 	}
 	for {
-		for i := range *w.ovenList {
-			if atomic.CompareAndSwapUint64(&((*w.ovenList)[i].isUsed), 0, w.Name) {
+		for i := range *(w.ovenList) {
+			if atomic.CompareAndSwapUint64(&((*(w.ovenList))[i].isUsed), 0, w.Name) {
 				return &(*w.ovenList)[i]
 			}
 		}
@@ -91,17 +92,13 @@ func (w *PizzaWorker) ReleaseOven(o *PizzaOven) {
 func (w PizzaWorker) Work(wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	numberOfOrders := uint64(0)
-	//start := time.Now()
-	WaitFor(100)
+	start := time.Now()
 	// Loop that goes on while there are still orders to be taken care of
 	for atomic.LoadUint64(w.orderTaken) < Config.Parameters.NumberOfOrders {
-
 		order, error := w.ProcessOrder()
 		// If the worker managed to enter this loop with other workers when there was
 		// not enought orders lefts for all of them, he cancel his order and break the loop
 		if error != nil {
-			log.Println(error)
 			break
 		}
 
@@ -118,13 +115,7 @@ func (w PizzaWorker) Work(wg *sync.WaitGroup) {
 			log.Fatal(error)
 		}
 
-		// Increment the number of delivered order, used to check the correcness
-		// of the program
-		numberOfOrders += 1
-		atomic.AddUint64(w.orderDelivered, 1)
-
 	}
-	//elapsed := time.Since(start)
-	//log.Printf("Worker %d Took %s to do %d orders", w.Name, elapsed, numberOfOrders)
-
+	elapsed := time.Since(start)
+	atomic.AddUint64(w.timeTakenTakingOrders, uint64(elapsed))
 }

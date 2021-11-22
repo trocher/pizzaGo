@@ -15,10 +15,12 @@ func main() {
 	start := time.Now()
 	var cfg config.Config
 	config.ReadConfig(&cfg)
-	components.StartPizzeria(cfg)
+	var latency = components.StartPizzeria(cfg)
 	elapsed := time.Since(start)
 	expectedTime := components.ExpectedTime()
 
 	log.Printf("Took %s to cook %d pizzas with %d workers and %d ovens", elapsed, components.Config.Parameters.NumberOfOrders, components.Config.Parameters.NumberOfWorkers, components.Config.Parameters.NumberOfOvens)
+	log.Printf("Average throuput of : %f pizza/ms and latency of %d ms/pizza", float64(components.Config.Parameters.NumberOfOrders)/float64(time.Duration(elapsed).Milliseconds()), latency)
+
 	log.Printf("overhead was %s (%d%%) as time taken is %s and expected time would be %s ", elapsed-expectedTime, int((float64(elapsed)/float64(expectedTime))*100)-100, elapsed, expectedTime)
 }
