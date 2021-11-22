@@ -1,0 +1,400 @@
+calling with 1 workers and 1 ovens
+2021/11/22 23:17:42 Starting pizzaGo ...
+2021/11/22 23:17:44 Took 1.931203392s to cook 200 pizzas with 1 workers and 1 ovens
+2021/11/22 23:17:44 Average throuput of : 0.103573 pizza/ms and latency of 9.65588ms ms/pizza
+calling with 1 workers and 2 ovens
+2021/11/22 23:17:44 Starting pizzaGo ...
+2021/11/22 23:17:46 Took 1.929519475s to cook 200 pizzas with 1 workers and 2 ovens
+2021/11/22 23:17:46 Average throuput of : 0.103681 pizza/ms and latency of 9.647465ms ms/pizza
+calling with 1 workers and 3 ovens
+2021/11/22 23:17:46 Starting pizzaGo ...
+2021/11/22 23:17:48 Took 1.927113455s to cook 200 pizzas with 1 workers and 3 ovens
+2021/11/22 23:17:48 Average throuput of : 0.103788 pizza/ms and latency of 9.635484ms ms/pizza
+calling with 1 workers and 4 ovens
+2021/11/22 23:17:48 Starting pizzaGo ...
+2021/11/22 23:17:50 Took 1.921785015s to cook 200 pizzas with 1 workers and 4 ovens
+2021/11/22 23:17:50 Average throuput of : 0.104112 pizza/ms and latency of 9.608829ms ms/pizza
+calling with 1 workers and 5 ovens
+2021/11/22 23:17:50 Starting pizzaGo ...
+2021/11/22 23:17:52 Took 1.937951328s to cook 200 pizzas with 1 workers and 5 ovens
+2021/11/22 23:17:52 Average throuput of : 0.103252 pizza/ms and latency of 9.689644ms ms/pizza
+calling with 1 workers and 6 ovens
+2021/11/22 23:17:52 Starting pizzaGo ...
+2021/11/22 23:17:54 Took 1.933810817s to cook 200 pizzas with 1 workers and 6 ovens
+2021/11/22 23:17:54 Average throuput of : 0.103466 pizza/ms and latency of 9.668976ms ms/pizza
+calling with 1 workers and 7 ovens
+2021/11/22 23:17:55 Starting pizzaGo ...
+2021/11/22 23:17:57 Took 1.928118987s to cook 200 pizzas with 1 workers and 7 ovens
+2021/11/22 23:17:57 Average throuput of : 0.103734 pizza/ms and latency of 9.640477ms ms/pizza
+calling with 1 workers and 8 ovens
+2021/11/22 23:17:57 Starting pizzaGo ...
+2021/11/22 23:17:59 Took 1.91616825s to cook 200 pizzas with 1 workers and 8 ovens
+2021/11/22 23:17:59 Average throuput of : 0.104384 pizza/ms and latency of 9.580755ms ms/pizza
+calling with 1 workers and 9 ovens
+2021/11/22 23:17:59 Starting pizzaGo ...
+2021/11/22 23:18:01 Took 1.921556422s to cook 200 pizzas with 1 workers and 9 ovens
+2021/11/22 23:18:01 Average throuput of : 0.104112 pizza/ms and latency of 9.607699ms ms/pizza
+calling with 1 workers and 10 ovens
+2021/11/22 23:18:01 Starting pizzaGo ...
+2021/11/22 23:18:03 Took 1.916239648s to cook 200 pizzas with 1 workers and 10 ovens
+2021/11/22 23:18:03 Average throuput of : 0.104384 pizza/ms and latency of 9.581113ms ms/pizza
+calling with 2 workers and 1 ovens
+2021/11/22 23:18:03 Starting pizzaGo ...
+2021/11/22 23:18:04 Took 1.315306005s to cook 200 pizzas with 2 workers and 1 ovens
+2021/11/22 23:18:04 Average throuput of : 0.152091 pizza/ms and latency of 13.121288ms ms/pizza
+calling with 2 workers and 2 ovens
+2021/11/22 23:18:05 Starting pizzaGo ...
+2021/11/22 23:18:06 Took 962.696463ms to cook 200 pizzas with 2 workers and 2 ovens
+2021/11/22 23:18:06 Average throuput of : 0.207900 pizza/ms and latency of 9.626624ms ms/pizza
+calling with 2 workers and 3 ovens
+2021/11/22 23:18:06 Starting pizzaGo ...
+2021/11/22 23:18:07 Took 964.631175ms to cook 200 pizzas with 2 workers and 3 ovens
+2021/11/22 23:18:07 Average throuput of : 0.207469 pizza/ms and latency of 9.646002ms ms/pizza
+calling with 2 workers and 4 ovens
+2021/11/22 23:18:07 Starting pizzaGo ...
+2021/11/22 23:18:08 Took 960.926028ms to cook 200 pizzas with 2 workers and 4 ovens
+2021/11/22 23:18:08 Average throuput of : 0.208333 pizza/ms and latency of 9.609ms ms/pizza
+calling with 2 workers and 5 ovens
+2021/11/22 23:18:08 Starting pizzaGo ...
+2021/11/22 23:18:09 Took 962.87206ms to cook 200 pizzas with 2 workers and 5 ovens
+2021/11/22 23:18:09 Average throuput of : 0.207900 pizza/ms and latency of 9.628312ms ms/pizza
+calling with 2 workers and 6 ovens
+2021/11/22 23:18:09 Starting pizzaGo ...
+2021/11/22 23:18:10 Took 964.475821ms to cook 200 pizzas with 2 workers and 6 ovens
+2021/11/22 23:18:10 Average throuput of : 0.207469 pizza/ms and latency of 9.644496ms ms/pizza
+calling with 2 workers and 7 ovens
+2021/11/22 23:18:11 Starting pizzaGo ...
+2021/11/22 23:18:12 Took 963.688931ms to cook 200 pizzas with 2 workers and 7 ovens
+2021/11/22 23:18:12 Average throuput of : 0.207684 pizza/ms and latency of 9.636658ms ms/pizza
+calling with 2 workers and 8 ovens
+2021/11/22 23:18:12 Starting pizzaGo ...
+2021/11/22 23:18:13 Took 959.141904ms to cook 200 pizzas with 2 workers and 8 ovens
+2021/11/22 23:18:13 Average throuput of : 0.208551 pizza/ms and latency of 9.591179ms ms/pizza
+calling with 2 workers and 9 ovens
+2021/11/22 23:18:13 Starting pizzaGo ...
+2021/11/22 23:18:14 Took 953.284061ms to cook 200 pizzas with 2 workers and 9 ovens
+2021/11/22 23:18:14 Average throuput of : 0.209864 pizza/ms and latency of 9.532616ms ms/pizza
+calling with 2 workers and 10 ovens
+2021/11/22 23:18:14 Starting pizzaGo ...
+2021/11/22 23:18:15 Took 959.724664ms to cook 200 pizzas with 2 workers and 10 ovens
+2021/11/22 23:18:15 Average throuput of : 0.208551 pizza/ms and latency of 9.597016ms ms/pizza
+calling with 3 workers and 1 ovens
+2021/11/22 23:18:15 Starting pizzaGo ...
+2021/11/22 23:18:16 Took 1.104843338s to cook 200 pizzas with 3 workers and 1 ovens
+2021/11/22 23:18:16 Average throuput of : 0.181159 pizza/ms and latency of 16.481285ms ms/pizza
+calling with 3 workers and 2 ovens
+2021/11/22 23:18:17 Starting pizzaGo ...
+2021/11/22 23:18:17 Took 661.705274ms to cook 200 pizzas with 3 workers and 2 ovens
+2021/11/22 23:18:17 Average throuput of : 0.302572 pizza/ms and latency of 9.876659ms ms/pizza
+calling with 3 workers and 3 ovens
+2021/11/22 23:18:17 Starting pizzaGo ...
+2021/11/22 23:18:18 Took 642.385252ms to cook 200 pizzas with 3 workers and 3 ovens
+2021/11/22 23:18:18 Average throuput of : 0.311526 pizza/ms and latency of 9.586994ms ms/pizza
+calling with 3 workers and 4 ovens
+2021/11/22 23:18:18 Starting pizzaGo ...
+2021/11/22 23:18:19 Took 642.324025ms to cook 200 pizzas with 3 workers and 4 ovens
+2021/11/22 23:18:19 Average throuput of : 0.311526 pizza/ms and latency of 9.587216ms ms/pizza
+calling with 3 workers and 5 ovens
+2021/11/22 23:18:19 Starting pizzaGo ...
+2021/11/22 23:18:20 Took 643.775229ms to cook 200 pizzas with 3 workers and 5 ovens
+2021/11/22 23:18:20 Average throuput of : 0.311042 pizza/ms and latency of 9.60892ms ms/pizza
+calling with 3 workers and 6 ovens
+2021/11/22 23:18:20 Starting pizzaGo ...
+2021/11/22 23:18:21 Took 640.720436ms to cook 200 pizzas with 3 workers and 6 ovens
+2021/11/22 23:18:21 Average throuput of : 0.312500 pizza/ms and latency of 9.562729ms ms/pizza
+calling with 3 workers and 7 ovens
+2021/11/22 23:18:21 Starting pizzaGo ...
+2021/11/22 23:18:21 Took 643.480954ms to cook 200 pizzas with 3 workers and 7 ovens
+2021/11/22 23:18:21 Average throuput of : 0.311042 pizza/ms and latency of 9.603919ms ms/pizza
+calling with 3 workers and 8 ovens
+2021/11/22 23:18:22 Starting pizzaGo ...
+2021/11/22 23:18:22 Took 643.899414ms to cook 200 pizzas with 3 workers and 8 ovens
+2021/11/22 23:18:22 Average throuput of : 0.311042 pizza/ms and latency of 9.609779ms ms/pizza
+calling with 3 workers and 9 ovens
+2021/11/22 23:18:23 Starting pizzaGo ...
+2021/11/22 23:18:23 Took 643.390883ms to cook 200 pizzas with 3 workers and 9 ovens
+2021/11/22 23:18:23 Average throuput of : 0.311042 pizza/ms and latency of 9.602413ms ms/pizza
+calling with 3 workers and 10 ovens
+2021/11/22 23:18:23 Starting pizzaGo ...
+2021/11/22 23:18:24 Took 641.846799ms to cook 200 pizzas with 3 workers and 10 ovens
+2021/11/22 23:18:24 Average throuput of : 0.312012 pizza/ms and latency of 9.578826ms ms/pizza
+calling with 4 workers and 1 ovens
+2021/11/22 23:18:24 Starting pizzaGo ...
+2021/11/22 23:18:25 Took 1.109056348s to cook 200 pizzas with 4 workers and 1 ovens
+2021/11/22 23:18:25 Average throuput of : 0.180343 pizza/ms and latency of 22.002724ms ms/pizza
+calling with 4 workers and 2 ovens
+2021/11/22 23:18:26 Starting pizzaGo ...
+2021/11/22 23:18:26 Took 555.521278ms to cook 200 pizzas with 4 workers and 2 ovens
+2021/11/22 23:18:26 Average throuput of : 0.360360 pizza/ms and latency of 11.044899ms ms/pizza
+calling with 4 workers and 3 ovens
+2021/11/22 23:18:26 Starting pizzaGo ...
+2021/11/22 23:18:27 Took 499.746132ms to cook 200 pizzas with 4 workers and 3 ovens
+2021/11/22 23:18:27 Average throuput of : 0.400802 pizza/ms and latency of 9.912829ms ms/pizza
+calling with 4 workers and 4 ovens
+2021/11/22 23:18:27 Starting pizzaGo ...
+2021/11/22 23:18:28 Took 478.071154ms to cook 200 pizzas with 4 workers and 4 ovens
+2021/11/22 23:18:28 Average throuput of : 0.418410 pizza/ms and latency of 9.560414ms ms/pizza
+calling with 4 workers and 5 ovens
+2021/11/22 23:18:28 Starting pizzaGo ...
+2021/11/22 23:18:28 Took 477.519964ms to cook 200 pizzas with 4 workers and 5 ovens
+2021/11/22 23:18:28 Average throuput of : 0.419287 pizza/ms and latency of 9.549344ms ms/pizza
+calling with 4 workers and 6 ovens
+2021/11/22 23:18:28 Starting pizzaGo ...
+2021/11/22 23:18:29 Took 477.268697ms to cook 200 pizzas with 4 workers and 6 ovens
+2021/11/22 23:18:29 Average throuput of : 0.419287 pizza/ms and latency of 9.544748ms ms/pizza
+calling with 4 workers and 7 ovens
+2021/11/22 23:18:29 Starting pizzaGo ...
+2021/11/22 23:18:30 Took 478.328103ms to cook 200 pizzas with 4 workers and 7 ovens
+2021/11/22 23:18:30 Average throuput of : 0.418410 pizza/ms and latency of 9.56594ms ms/pizza
+calling with 4 workers and 8 ovens
+2021/11/22 23:18:30 Starting pizzaGo ...
+2021/11/22 23:18:30 Took 480.015647ms to cook 200 pizzas with 4 workers and 8 ovens
+2021/11/22 23:18:30 Average throuput of : 0.416667 pizza/ms and latency of 9.599091ms ms/pizza
+calling with 4 workers and 9 ovens
+2021/11/22 23:18:31 Starting pizzaGo ...
+2021/11/22 23:18:31 Took 482.870704ms to cook 200 pizzas with 4 workers and 9 ovens
+2021/11/22 23:18:31 Average throuput of : 0.414938 pizza/ms and latency of 9.656716ms ms/pizza
+calling with 4 workers and 10 ovens
+2021/11/22 23:18:31 Starting pizzaGo ...
+2021/11/22 23:18:32 Took 479.412088ms to cook 200 pizzas with 4 workers and 10 ovens
+2021/11/22 23:18:32 Average throuput of : 0.417537 pizza/ms and latency of 9.587397ms ms/pizza
+calling with 5 workers and 1 ovens
+2021/11/22 23:18:32 Starting pizzaGo ...
+2021/11/22 23:18:33 Took 1.12197755s to cook 200 pizzas with 5 workers and 1 ovens
+2021/11/22 23:18:33 Average throuput of : 0.178412 pizza/ms and latency of 27.754496ms ms/pizza
+calling with 5 workers and 2 ovens
+2021/11/22 23:18:33 Starting pizzaGo ...
+2021/11/22 23:18:34 Took 560.439558ms to cook 200 pizzas with 5 workers and 2 ovens
+2021/11/22 23:18:34 Average throuput of : 0.357143 pizza/ms and latency of 13.880449ms ms/pizza
+calling with 5 workers and 3 ovens
+2021/11/22 23:18:34 Starting pizzaGo ...
+2021/11/22 23:18:34 Took 450.402634ms to cook 200 pizzas with 5 workers and 3 ovens
+2021/11/22 23:18:34 Average throuput of : 0.444444 pizza/ms and latency of 11.135869ms ms/pizza
+calling with 5 workers and 4 ovens
+2021/11/22 23:18:35 Starting pizzaGo ...
+2021/11/22 23:18:35 Took 404.826159ms to cook 200 pizzas with 5 workers and 4 ovens
+2021/11/22 23:18:35 Average throuput of : 0.495050 pizza/ms and latency of 10.002074ms ms/pizza
+calling with 5 workers and 5 ovens
+2021/11/22 23:18:35 Starting pizzaGo ...
+2021/11/22 23:18:36 Took 386.582994ms to cook 200 pizzas with 5 workers and 5 ovens
+2021/11/22 23:18:36 Average throuput of : 0.518135 pizza/ms and latency of 9.663754ms ms/pizza
+calling with 5 workers and 6 ovens
+2021/11/22 23:18:36 Starting pizzaGo ...
+2021/11/22 23:18:36 Took 386.31531ms to cook 200 pizzas with 5 workers and 6 ovens
+2021/11/22 23:18:36 Average throuput of : 0.518135 pizza/ms and latency of 9.65704ms ms/pizza
+calling with 5 workers and 7 ovens
+2021/11/22 23:18:36 Starting pizzaGo ...
+2021/11/22 23:18:37 Took 386.250421ms to cook 200 pizzas with 5 workers and 7 ovens
+2021/11/22 23:18:37 Average throuput of : 0.518135 pizza/ms and latency of 9.655539ms ms/pizza
+calling with 5 workers and 8 ovens
+2021/11/22 23:18:37 Starting pizzaGo ...
+2021/11/22 23:18:37 Took 386.318923ms to cook 200 pizzas with 5 workers and 8 ovens
+2021/11/22 23:18:37 Average throuput of : 0.518135 pizza/ms and latency of 9.6571ms ms/pizza
+calling with 5 workers and 9 ovens
+2021/11/22 23:18:38 Starting pizzaGo ...
+2021/11/22 23:18:38 Took 384.479267ms to cook 200 pizzas with 5 workers and 9 ovens
+2021/11/22 23:18:38 Average throuput of : 0.520833 pizza/ms and latency of 9.610754ms ms/pizza
+calling with 5 workers and 10 ovens
+2021/11/22 23:18:38 Starting pizzaGo ...
+2021/11/22 23:18:39 Took 383.952885ms to cook 200 pizzas with 5 workers and 10 ovens
+2021/11/22 23:18:39 Average throuput of : 0.522193 pizza/ms and latency of 9.597826ms ms/pizza
+calling with 6 workers and 1 ovens
+2021/11/22 23:18:39 Starting pizzaGo ...
+2021/11/22 23:18:40 Took 1.110226401s to cook 200 pizzas with 6 workers and 1 ovens
+2021/11/22 23:18:40 Average throuput of : 0.180180 pizza/ms and latency of 32.873581ms ms/pizza
+calling with 6 workers and 2 ovens
+2021/11/22 23:18:40 Starting pizzaGo ...
+2021/11/22 23:18:41 Took 554.760429ms to cook 200 pizzas with 6 workers and 2 ovens
+2021/11/22 23:18:41 Average throuput of : 0.361011 pizza/ms and latency of 16.45167ms ms/pizza
+calling with 6 workers and 3 ovens
+2021/11/22 23:18:41 Starting pizzaGo ...
+2021/11/22 23:18:41 Took 377.701431ms to cook 200 pizzas with 6 workers and 3 ovens
+2021/11/22 23:18:41 Average throuput of : 0.530504 pizza/ms and latency of 11.177726ms ms/pizza
+calling with 6 workers and 4 ovens
+2021/11/22 23:18:42 Starting pizzaGo ...
+2021/11/22 23:18:42 Took 339.03694ms to cook 200 pizzas with 6 workers and 4 ovens
+2021/11/22 23:18:42 Average throuput of : 0.589971 pizza/ms and latency of 10.067608ms ms/pizza
+calling with 6 workers and 5 ovens
+2021/11/22 23:18:42 Starting pizzaGo ...
+2021/11/22 23:18:42 Took 339.872718ms to cook 200 pizzas with 6 workers and 5 ovens
+2021/11/22 23:18:42 Average throuput of : 0.589971 pizza/ms and latency of 10.042863ms ms/pizza
+calling with 6 workers and 6 ovens
+2021/11/22 23:18:43 Starting pizzaGo ...
+2021/11/22 23:18:43 Took 328.607289ms to cook 200 pizzas with 6 workers and 6 ovens
+2021/11/22 23:18:43 Average throuput of : 0.609756 pizza/ms and latency of 9.664198ms ms/pizza
+calling with 6 workers and 7 ovens
+2021/11/22 23:18:43 Starting pizzaGo ...
+2021/11/22 23:18:43 Took 328.410593ms to cook 200 pizzas with 6 workers and 7 ovens
+2021/11/22 23:18:43 Average throuput of : 0.609756 pizza/ms and latency of 9.659552ms ms/pizza
+calling with 6 workers and 8 ovens
+2021/11/22 23:18:44 Starting pizzaGo ...
+2021/11/22 23:18:44 Took 328.737386ms to cook 200 pizzas with 6 workers and 8 ovens
+2021/11/22 23:18:44 Average throuput of : 0.609756 pizza/ms and latency of 9.667279ms ms/pizza
+calling with 6 workers and 9 ovens
+2021/11/22 23:18:44 Starting pizzaGo ...
+2021/11/22 23:18:45 Took 329.566039ms to cook 200 pizzas with 6 workers and 9 ovens
+2021/11/22 23:18:45 Average throuput of : 0.607903 pizza/ms and latency of 9.690716ms ms/pizza
+calling with 6 workers and 10 ovens
+2021/11/22 23:18:45 Starting pizzaGo ...
+2021/11/22 23:18:45 Took 327.775914ms to cook 200 pizzas with 6 workers and 10 ovens
+2021/11/22 23:18:45 Average throuput of : 0.611621 pizza/ms and latency of 9.639852ms ms/pizza
+calling with 7 workers and 1 ovens
+2021/11/22 23:18:45 Starting pizzaGo ...
+2021/11/22 23:18:46 Took 1.120356544s to cook 200 pizzas with 7 workers and 1 ovens
+2021/11/22 23:18:46 Average throuput of : 0.178571 pizza/ms and latency of 38.602709ms ms/pizza
+calling with 7 workers and 2 ovens
+2021/11/22 23:18:47 Starting pizzaGo ...
+2021/11/22 23:18:47 Took 562.758914ms to cook 200 pizzas with 7 workers and 2 ovens
+2021/11/22 23:18:47 Average throuput of : 0.355872 pizza/ms and latency of 19.414887ms ms/pizza
+calling with 7 workers and 3 ovens
+2021/11/22 23:18:47 Starting pizzaGo ...
+2021/11/22 23:18:48 Took 378.769553ms to cook 200 pizzas with 7 workers and 3 ovens
+2021/11/22 23:18:48 Average throuput of : 0.529101 pizza/ms and latency of 13.035039ms ms/pizza
+calling with 7 workers and 4 ovens
+2021/11/22 23:18:48 Starting pizzaGo ...
+2021/11/22 23:18:48 Took 297.73736ms to cook 200 pizzas with 7 workers and 4 ovens
+2021/11/22 23:18:48 Average throuput of : 0.673401 pizza/ms and latency of 10.277953ms ms/pizza
+calling with 7 workers and 5 ovens
+2021/11/22 23:18:48 Starting pizzaGo ...
+2021/11/22 23:18:49 Took 293.635089ms to cook 200 pizzas with 7 workers and 5 ovens
+2021/11/22 23:18:49 Average throuput of : 0.682594 pizza/ms and latency of 10.109439ms ms/pizza
+calling with 7 workers and 6 ovens
+2021/11/22 23:18:49 Starting pizzaGo ...
+2021/11/22 23:18:49 Took 290.563844ms to cook 200 pizzas with 7 workers and 6 ovens
+2021/11/22 23:18:49 Average throuput of : 0.689655 pizza/ms and latency of 10.068286ms ms/pizza
+calling with 7 workers and 7 ovens
+2021/11/22 23:18:49 Starting pizzaGo ...
+2021/11/22 23:18:50 Took 280.675758ms to cook 200 pizzas with 7 workers and 7 ovens
+2021/11/22 23:18:50 Average throuput of : 0.714286 pizza/ms and latency of 9.675762ms ms/pizza
+calling with 7 workers and 8 ovens
+2021/11/22 23:18:50 Starting pizzaGo ...
+2021/11/22 23:18:50 Took 278.754181ms to cook 200 pizzas with 7 workers and 8 ovens
+2021/11/22 23:18:50 Average throuput of : 0.719424 pizza/ms and latency of 9.609879ms ms/pizza
+calling with 7 workers and 9 ovens
+2021/11/22 23:18:50 Starting pizzaGo ...
+2021/11/22 23:18:51 Took 277.765461ms to cook 200 pizzas with 7 workers and 9 ovens
+2021/11/22 23:18:51 Average throuput of : 0.722022 pizza/ms and latency of 9.577175ms ms/pizza
+calling with 7 workers and 10 ovens
+2021/11/22 23:18:51 Starting pizzaGo ...
+2021/11/22 23:18:51 Took 276.805936ms to cook 200 pizzas with 7 workers and 10 ovens
+2021/11/22 23:18:51 Average throuput of : 0.724638 pizza/ms and latency of 9.541868ms ms/pizza
+calling with 8 workers and 1 ovens
+2021/11/22 23:18:51 Starting pizzaGo ...
+2021/11/22 23:18:53 Took 1.119224071s to cook 200 pizzas with 8 workers and 1 ovens
+2021/11/22 23:18:53 Average throuput of : 0.178731 pizza/ms and latency of 43.966716ms ms/pizza
+calling with 8 workers and 2 ovens
+2021/11/22 23:18:53 Starting pizzaGo ...
+2021/11/22 23:18:53 Took 559.94868ms to cook 200 pizzas with 8 workers and 2 ovens
+2021/11/22 23:18:53 Average throuput of : 0.357782 pizza/ms and latency of 22.034367ms ms/pizza
+calling with 8 workers and 3 ovens
+2021/11/22 23:18:54 Starting pizzaGo ...
+2021/11/22 23:18:54 Took 376.437602ms to cook 200 pizzas with 8 workers and 3 ovens
+2021/11/22 23:18:54 Average throuput of : 0.531915 pizza/ms and latency of 14.770786ms ms/pizza
+calling with 8 workers and 4 ovens
+2021/11/22 23:18:54 Starting pizzaGo ...
+2021/11/22 23:18:55 Took 283.95687ms to cook 200 pizzas with 8 workers and 4 ovens
+2021/11/22 23:18:55 Average throuput of : 0.706714 pizza/ms and latency of 11.21392ms ms/pizza
+calling with 8 workers and 5 ovens
+2021/11/22 23:18:55 Starting pizzaGo ...
+2021/11/22 23:18:55 Took 269.062633ms to cook 200 pizzas with 8 workers and 5 ovens
+2021/11/22 23:18:55 Average throuput of : 0.743494 pizza/ms and latency of 10.626087ms ms/pizza
+calling with 8 workers and 6 ovens
+2021/11/22 23:18:55 Starting pizzaGo ...
+2021/11/22 23:18:55 Took 257.946635ms to cook 200 pizzas with 8 workers and 6 ovens
+2021/11/22 23:18:55 Average throuput of : 0.778210 pizza/ms and latency of 10.149591ms ms/pizza
+calling with 8 workers and 7 ovens
+2021/11/22 23:18:56 Starting pizzaGo ...
+2021/11/22 23:18:56 Took 256.982283ms to cook 200 pizzas with 8 workers and 7 ovens
+2021/11/22 23:18:56 Average throuput of : 0.781250 pizza/ms and latency of 10.062775ms ms/pizza
+calling with 8 workers and 8 ovens
+2021/11/22 23:18:56 Starting pizzaGo ...
+2021/11/22 23:18:56 Took 242.201505ms to cook 200 pizzas with 8 workers and 8 ovens
+2021/11/22 23:18:56 Average throuput of : 0.826446 pizza/ms and latency of 9.685675ms ms/pizza
+calling with 8 workers and 9 ovens
+2021/11/22 23:18:57 Starting pizzaGo ...
+2021/11/22 23:18:57 Took 242.513847ms to cook 200 pizzas with 8 workers and 9 ovens
+2021/11/22 23:18:57 Average throuput of : 0.826446 pizza/ms and latency of 9.697968ms ms/pizza
+calling with 8 workers and 10 ovens
+2021/11/22 23:18:57 Starting pizzaGo ...
+2021/11/22 23:18:57 Took 240.850987ms to cook 200 pizzas with 8 workers and 10 ovens
+2021/11/22 23:18:57 Average throuput of : 0.833333 pizza/ms and latency of 9.632175ms ms/pizza
+calling with 9 workers and 1 ovens
+2021/11/22 23:18:57 Starting pizzaGo ...
+2021/11/22 23:18:59 Took 1.119222419s to cook 200 pizzas with 9 workers and 1 ovens
+2021/11/22 23:18:59 Average throuput of : 0.178731 pizza/ms and latency of 49.34256ms ms/pizza
+calling with 9 workers and 2 ovens
+2021/11/22 23:18:59 Starting pizzaGo ...
+2021/11/22 23:18:59 Took 564.413412ms to cook 200 pizzas with 9 workers and 2 ovens
+2021/11/22 23:18:59 Average throuput of : 0.354610 pizza/ms and latency of 24.91533ms ms/pizza
+calling with 9 workers and 3 ovens
+2021/11/22 23:19:00 Starting pizzaGo ...
+2021/11/22 23:19:00 Took 373.644873ms to cook 200 pizzas with 9 workers and 3 ovens
+2021/11/22 23:19:00 Average throuput of : 0.536193 pizza/ms and latency of 16.442975ms ms/pizza
+calling with 9 workers and 4 ovens
+2021/11/22 23:19:00 Starting pizzaGo ...
+2021/11/22 23:19:00 Took 282.149162ms to cook 200 pizzas with 9 workers and 4 ovens
+2021/11/22 23:19:00 Average throuput of : 0.709220 pizza/ms and latency of 12.489428ms ms/pizza
+calling with 9 workers and 5 ovens
+2021/11/22 23:19:01 Starting pizzaGo ...
+2021/11/22 23:19:01 Took 228.163164ms to cook 200 pizzas with 9 workers and 5 ovens
+2021/11/22 23:19:01 Average throuput of : 0.877193 pizza/ms and latency of 10.06705ms ms/pizza
+calling with 9 workers and 6 ovens
+2021/11/22 23:19:01 Starting pizzaGo ...
+2021/11/22 23:19:01 Took 227.990059ms to cook 200 pizzas with 9 workers and 6 ovens
+2021/11/22 23:19:01 Average throuput of : 0.881057 pizza/ms and latency of 10.059076ms ms/pizza
+calling with 9 workers and 7 ovens
+2021/11/22 23:19:02 Starting pizzaGo ...
+2021/11/22 23:19:02 Took 228.16534ms to cook 200 pizzas with 9 workers and 7 ovens
+2021/11/22 23:19:02 Average throuput of : 0.877193 pizza/ms and latency of 10.016039ms ms/pizza
+calling with 9 workers and 8 ovens
+2021/11/22 23:19:02 Starting pizzaGo ...
+2021/11/22 23:19:02 Took 228.146435ms to cook 200 pizzas with 9 workers and 8 ovens
+2021/11/22 23:19:02 Average throuput of : 0.877193 pizza/ms and latency of 9.967711ms ms/pizza
+calling with 9 workers and 9 ovens
+2021/11/22 23:19:02 Starting pizzaGo ...
+2021/11/22 23:19:03 Took 220.931502ms to cook 200 pizzas with 9 workers and 9 ovens
+2021/11/22 23:19:03 Average throuput of : 0.909091 pizza/ms and latency of 9.602356ms ms/pizza
+calling with 9 workers and 10 ovens
+2021/11/22 23:19:03 Starting pizzaGo ...
+2021/11/22 23:19:03 Took 220.374002ms to cook 200 pizzas with 9 workers and 10 ovens
+2021/11/22 23:19:03 Average throuput of : 0.909091 pizza/ms and latency of 9.580371ms ms/pizza
+calling with 10 workers and 1 ovens
+2021/11/22 23:19:03 Starting pizzaGo ...
+2021/11/22 23:19:04 Took 1.10879771s to cook 200 pizzas with 10 workers and 1 ovens
+2021/11/22 23:19:04 Average throuput of : 0.180505 pizza/ms and latency of 54.170418ms ms/pizza
+calling with 10 workers and 2 ovens
+2021/11/22 23:19:05 Starting pizzaGo ...
+2021/11/22 23:19:05 Took 557.962469ms to cook 200 pizzas with 10 workers and 2 ovens
+2021/11/22 23:19:05 Average throuput of : 0.359066 pizza/ms and latency of 27.302794ms ms/pizza
+calling with 10 workers and 3 ovens
+2021/11/22 23:19:05 Starting pizzaGo ...
+2021/11/22 23:19:06 Took 375.796269ms to cook 200 pizzas with 10 workers and 3 ovens
+2021/11/22 23:19:06 Average throuput of : 0.533333 pizza/ms and latency of 18.331693ms ms/pizza
+calling with 10 workers and 4 ovens
+2021/11/22 23:19:06 Starting pizzaGo ...
+2021/11/22 23:19:06 Took 281.501007ms to cook 200 pizzas with 10 workers and 4 ovens
+2021/11/22 23:19:06 Average throuput of : 0.711744 pizza/ms and latency of 13.808293ms ms/pizza
+calling with 10 workers and 5 ovens
+2021/11/22 23:19:06 Starting pizzaGo ...
+2021/11/22 23:19:07 Took 227.807599ms to cook 200 pizzas with 10 workers and 5 ovens
+2021/11/22 23:19:07 Average throuput of : 0.881057 pizza/ms and latency of 11.202482ms ms/pizza
+calling with 10 workers and 6 ovens
+2021/11/22 23:19:07 Starting pizzaGo ...
+2021/11/22 23:19:07 Took 222.384812ms to cook 200 pizzas with 10 workers and 6 ovens
+2021/11/22 23:19:07 Average throuput of : 0.900901 pizza/ms and latency of 10.866298ms ms/pizza
+calling with 10 workers and 7 ovens
+2021/11/22 23:19:07 Starting pizzaGo ...
+2021/11/22 23:19:08 Took 206.181782ms to cook 200 pizzas with 10 workers and 7 ovens
+2021/11/22 23:19:08 Average throuput of : 0.970874 pizza/ms and latency of 10.119928ms ms/pizza
+calling with 10 workers and 8 ovens
+2021/11/22 23:19:08 Starting pizzaGo ...
+2021/11/22 23:19:08 Took 207.285138ms to cook 200 pizzas with 10 workers and 8 ovens
+2021/11/22 23:19:08 Average throuput of : 0.966184 pizza/ms and latency of 10.128471ms ms/pizza
+calling with 10 workers and 9 ovens
+2021/11/22 23:19:08 Starting pizzaGo ...
+2021/11/22 23:19:08 Took 206.313323ms to cook 200 pizzas with 10 workers and 9 ovens
+2021/11/22 23:19:08 Average throuput of : 0.970874 pizza/ms and latency of 10.031122ms ms/pizza
+calling with 10 workers and 10 ovens
+2021/11/22 23:19:09 Starting pizzaGo ...
+2021/11/22 23:19:09 Took 193.866865ms to cook 200 pizzas with 10 workers and 10 ovens
+2021/11/22 23:19:09 Average throuput of : 1.036269 pizza/ms and latency of 9.689242ms ms/pizza

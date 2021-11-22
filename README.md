@@ -204,4 +204,13 @@ The [results](results/throughputs/raw_throughputs.txt) are converted (i.e we div
 
 ### Latency
 
-To obtain latencies we run the main function with differents parameters and check the value returned by ```StartPizzeria``` as it return the average latency of the run.
+To obtain latencies we run the main function with differents parameters and check the value returned by ```StartPizzeria``` as it return the average latency of the run. The configuration used is the exact same as the one used for the throughputs.
+
+The [bash script](results/latencies/run_benchmark.sh) to perform all theses run can be run as follow :
+
+    ./run_benchmark.sh
+
+The obtained results can be found in a [text file](results/latencies/treated_latencies.txt) or more summarized in the figure below:
+
+  ![Latencies](results/latencies/latencies.jpg)
+
