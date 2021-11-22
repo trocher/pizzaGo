@@ -14,7 +14,7 @@ func BenchmarkPizzeria(b *testing.B) {
 	cfg.Times.Prepare = uint64(2)
 	cfg.Times.Bake = uint64(5)
 	cfg.Times.QualityCheck = uint64(1)
-	cfg.Parameters.NumberOfOrders = uint64(100)
+	cfg.Parameters.NumberOfOrders = uint64(200)
 
 	// First variable of the benchmark
 	for nbWorker := uint64(1); nbWorker <= 10; nbWorker++ {
