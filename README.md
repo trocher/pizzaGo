@@ -15,7 +15,7 @@ To run the program, two possibilities are available :
 
 ### Using a yaml config file
 
-The folder config provide a [sample file](config/config.yml) that can be used and modified. An example of such file is shown below.
+The folder config provide a [sample file](configs/config.yml) that can be used and modified. An example of such file is shown below.
 ```yml
 # Config file for PizzaGo
 # Each value must be an integer strictly positive
@@ -171,7 +171,7 @@ time.Sleep(time.Duration(t) * time.Millisecond)
 indeed, according to the ```time``` package [documentation](https://pkg.go.dev/time#Sleep),
 > Sleep pauses the current goroutine for at least the duration d
 
-We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more.
+We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more. The fact that the bakers are waiting for ovens by looping indefinitly might also cause other Goroutines' call to sleep to takes more time depending on how Goroutine are treated by the OS.
 
 ### Throughput
 
@@ -196,7 +196,12 @@ parameters:
 The configuration is run using the following command in the internal/components/ directory:
 
 
-    go test -bench=. -benchtime=10s
+    go test -bench=. -benchtime=10s -timeout=30m
 
+The [results](results/throughputs/raw_throughputs.txt) are converted (i.e we divide the number of pizza baked by the runnings time) and shown in the graph below, they are also available in a [text file](results/throughputs/treated_throughputs.txt)
 
-The results are the following
+![Throughputs](results/throughputs/throughputs.jpg)
+
+### Latency
+
+To obtain latencies we run the main function with differents parameters and check the value returned by ```StartPizzeria``` as it return the average latency of the run.
