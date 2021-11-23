@@ -60,6 +60,7 @@ func manualConfig(config *Config) {
 	config.Parameters.NumberOfOvens = readArg(6)
 	config.Parameters.NumberOfOrders = readArg(7)
 }
+
 func yamlConfig(config *Config) {
 	f, error := os.Open(os.Args[1])
 	// If there was an error while opening the file, exit

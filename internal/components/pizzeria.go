@@ -50,7 +50,10 @@ func StartPizzeria(withConfig config.Config) time.Duration {
 
 	ovenList := InitOvens()
 
+	// Number of orders that has already been taken
 	var orderTaken uint64 = 0
+
+	// Sum of the working time of each worker
 	var timeTakenTakingOrders uint64 = 0
 
 	// If there are less workers than ovens, then the worker can claim an oven, he

@@ -151,7 +151,7 @@ To release the oven, the worker atomically swaps the value back to 0 in a simila
 atomic.CompareAndSwapUint64(&(o.isUsed), w.Name, 0)
 ```
 
-### The delivered Orders counter
+### The timer counter
 
 The counter ```timeTakenTakingOrders``` is the last object accessed concurrently, the same logic as the order counter is used here as it is only incremented using the following function:
 ```go
@@ -174,6 +174,8 @@ indeed, according to the ```time``` package [documentation](https://pkg.go.dev/t
 We hence have no guarranty that the sleep function will sleep exactly for the time specified, depending on the environment, it might in fact be much more. The fact that the bakers are waiting for ovens by looping indefinitly might also cause other Goroutines' call to sleep to takes more time depending on how Goroutine are treated by the OS.
 
 ### Throughput
+
+The throughput is the average number of pizza produced by the pizzeria every millisecond.
 
 To obtain values for the throughput of the system, the go's benchmarking framework has been used, it can be found in [pizzeria_test.go](internal/components/pizzeria_test.go). It consist in timing multiple times runs of the pizzeria with different ```NumberOfWorkers``` and ```NumberOfOvens``` parameters. The used configurations are described here :
 
@@ -198,11 +200,14 @@ The configuration is run using the following command in the internal/components/
 
     go test -bench=. -benchtime=10s -timeout=30m
 
-The [results](results/throughputs/raw_throughputs.txt) are converted (i.e we divide the number of pizza baked by the runnings time) and shown in the graph below, they are also available in a [text file](results/throughputs/treated_throughputs.txt)
+The [results](results/throughputs/raw_throughputs.txt) are converted (i.e we divide the number of pizza baked by the runnings time) and shown in the graph below, they are also available in a [text file](results/throughputs/treated_throughputs.txt).
 
 ![Throughputs](results/throughputs/throughputs.jpg)
 
 ### Latency
+
+The latency is the average time to make a pizza, from the time the order is taken, to the time it is delivrered.
+
 
 To obtain latencies we run the main function with differents parameters and check the value returned by ```StartPizzeria``` as it return the average latency of the run. The configuration used is the exact same as the one used for the throughputs.
 
@@ -214,3 +219,13 @@ The obtained results can be found in a [text file](results/latencies/treated_lat
 
   ![Latencies](results/latencies/latencies.jpg)
 
+### Performance analysis
+
+
+The first obvious remark is that the more ovens there is, the better the program perform, improving both the Throughput and the latency. This remark is however only true until a point, indeed when there are more oven than bakers, increasing ovens does not improve the performances anymore.
+
+The opposite however is not necessarily false, indeed, in the first figure we can see that increasing the number of bakers can increase the throughput even when there are less ovens than bakers. This is due to the fact that the pizzeria will work as a pipeline since the oven is only used 5ms out of 9ms in the process of making a pizza
+
+We can also see that overall, the more bakers there is, the more the latency will be high even if the throughput is itself higher. This is due to the fact that even if the system will perform better overall, pizza bakers will need to wait longer for oven to be available, hence there is a tradoff between "how many pizza we want to sell in a given period of time" and "do we want order to be delivered fast".
+
+Finally, we managed to reach 1 pizza/ms with 10 bakers, we could very much add more of them to get higher throughput but at some point Goroutines overhead might be to high.
