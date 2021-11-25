@@ -228,4 +228,4 @@ The opposite however is not necessarily false, indeed, in the first figure we ca
 
 We can also see that overall, the more bakers there is, the more the latency will be high even if the throughput is itself higher. This is due to the fact that even if the system will perform better overall, pizza bakers will need to wait longer for oven to be available, hence there is a tradoff between "how many pizza we want to sell in a given period of time" and "do we want order to be delivered fast".
 
-Finally, we managed to reach 1 pizza/ms with 10 bakers, we could very much add more of them to get higher throughput but at some point Goroutines overhead might be to high.
+Finally, we managed to reach 1 pizza/ms with 10 bakers, we could very much add more of them to get higher throughput but at some point Goroutines overhead might be too high.
